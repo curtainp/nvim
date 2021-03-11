@@ -25,7 +25,7 @@ local disable_distribution_plugins = function ()
   vim.g.loaded_tarPlugin          = 1
   vim.g.loaded_zip                = 1
   vim.g.loaded_zipPlugin          = 1
-
+  -- disable vim archiver: build extract and preview
   vim.g.loaded_getscript          = 1
   vim.g.loaded_getscriptPlugin    = 1
   vim.g.loaded_vimball            = 1
