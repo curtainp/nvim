@@ -2,11 +2,10 @@ local global = require('universal.global')
 
 local createdir = function ()
   local data_dir = {
-    global.cache_dir.."backup",
-    global.cache_dir.."session",
-    global.cache_dir.."tags",
-    global.cache_dir.."swap",
-    global.cache_dir.."undo",
+    global.join_paths(global.cache_dir, 'backup'),
+    global.join_paths(global.cache_dir, 'session'),
+    global.join_paths(global.cache_dir, 'tags'),
+    global.join_paths(global.cache_dir, 'undo'),
   }
   if vim.fn.isdirectory(global.cache_dir) == 0 then
     vim.fn.mkdir(global.cache_dir, 'p')
@@ -53,8 +52,7 @@ local core_init = function ()
   disable_distribution_plugins()
   leader_map()
 
-  require('core.pack').ensure_plugins()
-  require('core.options')
+  require('universal.pack').ensure_plugins()
   require('core.mapping')
   require('keymap')
   require('core.event')

@@ -1,6 +1,11 @@
 local global = {}
-local os_name = vim.loop.os_uname().sysname
-local path_sep = os_name == 'Windows' and '\\' or '/'
+global.os_name = vim.loop.os_uname().sysname
+global.path_sep = function ()
+  if global.os_name == 'Windows' then
+    return '\\'
+  end
+  return '/'
+end
 
 local function load_options()
   local options = {
@@ -90,12 +95,21 @@ local function load_options()
   end
 end
 
+global.join_paths = function (...)
+  return table.concat({...}, global.path_sep)
+end
+
 function global:load_variables()
-  self.home_dir = os.getenv("HOME")
-  self.path_sep = path_sep
-  self.nvim_config_dir = vim.fn.stdpath('config')
-  self.cache_dir = self.home_dir..path_sep..'.cache'..path_sep..'nvim'..path_sep
-  self.plugin_modules_dir = self.nvim_config_dir..'modules'
+  -- ~/.cache/nvim/
+  self.cache_dir = self.join_paths(os.getenv('HOME'), '.cache', 'nvim')
+  -- ~/.config/nvim/lua/modules
+  self.plugin_modules_dir = self.join_paths(vim.fn.stdpath('config'), 'lua', 'modules')
+  -- ~/.local/share/nvim/site/
+  self.data_dir = self.join_paths(vim.fn.stdpath('data'), 'site')
+  -- ~/.local/share/nvim/site/plugin/packer_compiled.vim
+  self.packer_compiled_path = self.join_paths(self.data_dir, 'plugin', 'packer_compiled.vim')
+  -- ~/.loca/share/nvim/site/pack/packer/opt/packer.vim
+  self.packer_dir = self.join_paths(self.data_dir, 'pack', 'packer', 'opt', 'packer.vim')
   load_options()
 end
 
