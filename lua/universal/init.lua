@@ -56,12 +56,6 @@ local core_init = function ()
   require('core.mapping')
   require('keymap')
   require('core.event')
-
-  vim.cmd [[command! PackerCompile lua require('core.pack').compile()]]
-  vim.cmd [[command! PackerInstall lua require('core.pack').install()]]
-  vim.cmd [[command! PackerUpdate lua require('core.pack').update()]]
-  vim.cmd [[command! PackerSync lua require('core.pack').sync()]]
-  vim.cmd [[command! PackerClean lua require('core.pack').clean()]]
 end
 
 core_init()

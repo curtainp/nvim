@@ -32,8 +32,7 @@ function Packer:load_packer()
   end
   packer.init({
     compile_path = global.packer_compiled_path,
-    git = { clone_timeout = 120 },
-    disable_commands = true
+    git = { clone_timeout = 120 }
   })
   packer.reset()
   local use = packer.use
